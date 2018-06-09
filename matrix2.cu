@@ -6,7 +6,7 @@
 #define PI 3.141592654
 #define seed 7
 
-//Definition of Functions
+//Declaration of Functions
 
 
 void print(double * M,int cols,int rows);
@@ -153,7 +153,8 @@ matrixSum<<<number_of_blocks,threads_per_block>>>(Id,ones,1,-1.0/n2,ssr_matrix);
  return 0;
 }
 
-
+//Definition of the functions
+//Function to print any matrix of size cols x rows
 void print(double * M,int cols,int rows){
   
   for( int row = 0; row < rows; ++row ){
@@ -164,6 +165,8 @@ void print(double * M,int cols,int rows){
     printf("\n");
   }
 }
+
+//Multiply two matrices of different size N x n and n x N
 __global__ void matrixMul( double * a, double * b, double * c )
 {
   double val = 0.;
@@ -177,6 +180,8 @@ __global__ void matrixMul( double * a, double * b, double * c )
   }    
   c[row*n + col] = val;
 }
+
+//Calculate the sum of two matrices
 __global__ void matrixSum( double * a, double * b,double const_a,double const_b, double * c )
 {
   int row = blockIdx.x * blockDim.x + threadIdx.x;
@@ -186,6 +191,8 @@ __global__ void matrixSum( double * a, double * b,double const_a,double const_b,
       c[col*n+row]= const_a*a[col * n + row] +const_b* b[ col*n  + row];
     }
 }
+
+//Multiply a matrix and a vector
 __global__ void matrix_Vec_Mul( double * A, double * b, double * c )
 {
   double val = 0.;
@@ -199,7 +206,7 @@ __global__ void matrix_Vec_Mul( double * A, double * b, double * c )
   c[row] = val;
 }
 
-
+//Dot product
 double dot( double * a, double * b)
 {double c0=0;
     for (int k = 0; k < n; k++){
@@ -207,7 +214,7 @@ double dot( double * a, double * b)
 }
 return c0;
 }
-
+//Multiply two square matrices 
 
 __global__ void matrixMul2( double * a, double * b, double * c )
 {
@@ -223,6 +230,7 @@ __global__ void matrixMul2( double * a, double * b, double * c )
   c[row*n + col] = val;
 }
 
+//Calculate the transposition of a matrix
 __global__ void matrixTrans(double * M,double * MT)
 {
   double val=0;
@@ -234,6 +242,8 @@ __global__ void matrixTrans(double * M,double * MT)
     MT[row + n*col] = val;      
   } 
 }
+
+//Calculate the transposition for a square matrix
 __global__ void matrixTrans2(double * M,double * MT)
 {
   double val=0;
@@ -245,7 +255,7 @@ __global__ void matrixTrans2(double * M,double * MT)
     MT[row + n*col] = val;      
   } 
 }
-
+////////////THE FOLLOWING FUNCTIONS ARE FOR THE INVERSION///////////////
 
 __global__ void nodiag_normalize(double *A, double *I, int nn, int i){
   int x = blockIdx.x * blockDim.x + threadIdx.x;
