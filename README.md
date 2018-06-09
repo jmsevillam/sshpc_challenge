@@ -18,4 +18,5 @@ cuda matrix2.cu -o matrix.out
 It computes a randomly distributed matrix of size 1024 x 256 transpose, then the product, inversion and some multiplications. That task is done on average on 0.5 secs on a Nvidia Tesla M60. 
 
 Inline-style: 
-![alt text](https://github.com/jmsevillam/1.png "Example")
+
+![alt text](https://github.com/jmsevillam/sshpc_challenge/1.png "Example")
