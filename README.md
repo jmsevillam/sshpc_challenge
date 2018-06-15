@@ -20,7 +20,17 @@ To run the program, no specially libreries are needed.
 cuda Freedman.cu -o Freedman.out
 ./Freedman.out > data.dat
 python plots.py
+
 ```
+On data.dat is stored:
+    
+    - an id, 1 for the first time and 2 for the second time of the ANOVA test.
+    - The $r^2$ value.
+    - the SSR value
+    - the SST value
+    - the F value
+So, the odd lines are for the complete matrix, and the even for the reduced one.
+
 The computation is done for the 8192 repetitions on average on 6 minutes on a Nvidia Tesla M60. 
 
 
