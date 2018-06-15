@@ -22,3 +22,6 @@ cuda Freedman.cu -o Freedman.out
 python plots.py
 ```
 The computation is done for the 8192 repetitions on average on 6 minutes on a Nvidia Tesla M60. 
+
+
+Besides that,´Intento.py´ is a python code that also solves the problem.
