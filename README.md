@@ -33,5 +33,10 @@ So, the odd lines are for the complete matrix, and the even for the reduced one.
 
 The computation is done for the 8192 repetitions on average on 6 minutes on a Nvidia Tesla M60. 
 
+On the plot RandFAll.pdf, is plot a histogram of R and F for all the samples.
+And on the plot RandFPtest.pdf, is plot a histogram of R and F for all the samples that satisfies the F-test before (two above) deleting the less "important" variables, and after (two below).
+
+
+
 
 Besides that,´Intento.py´ is a python code that also solves the problem.
