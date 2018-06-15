@@ -77,6 +77,8 @@ int main(int argc, char * argv[])
     {
       // Start with the number of columns
       p=128;
+      R2=0;
+      F=0;
       
       // Define the size of the arrays
       size0 = n * sizeof(double);
@@ -158,7 +160,7 @@ int main(int argc, char * argv[])
       cudaDeviceSynchronize();
       
       set_zeros(aux,n);
-      matrixMul<<<numBlocks,threadsPerBlock>>>(Suma,Y,aux,n,1,n);
+      matrixMul<<<1,n>>>(Suma,Y,aux,1,n,n);
       cudaDeviceSynchronize();
       
       dot(Y,aux,sst,n);
@@ -178,6 +180,7 @@ int main(int argc, char * argv[])
 	  double t0=0,Pvalue=0;
 	  
 	  // ------------------ TEsting P-Value to know the important variables-----------
+	  p0=0;
 	  for(int ii=0;ii<p;ii++)
 	    {  
 	      t0=beta[ii]/std::sqrt(sigma2*Inv[ii*p+ii]);
@@ -185,6 +188,7 @@ int main(int argc, char * argv[])
 	      if(Pvalue<0.25)
 		{
 		  vec[ii]=1;
+		  p0+=1;
 		}
 	      else
 		{
@@ -192,17 +196,12 @@ int main(int argc, char * argv[])
 		}
 	  }
 	  
-	  p0=0;
 	  
-	  // ------------ Counting number of variables that pass the p-test---------
-
-	  for(int k=0;k<p;k++)
-	    {
-	      p0+=vec[k];
-	    }
+	  
 	  
 	  if (p0==0)
 	    {
+	      
 	      continue;
 	    }
 	  
@@ -300,7 +299,7 @@ int main(int argc, char * argv[])
 	  
 	  
 	  set_zeros(aux,n);
-	  matrixMul<<<numBlocks,threadsPerBlock>>>(Suma,Y,aux,n,1,n);
+	  matrixMul<<<1,n>>>(Suma,Y,aux,1,n,n);
 	  cudaDeviceSynchronize();
 	  
 	  dot(Y,aux,sst,n);
